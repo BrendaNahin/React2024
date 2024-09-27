@@ -1,7 +1,19 @@
-const ItemListContainer = () => {
+const ItemListContainer = ({ greeting }) => {
     return (
-        <div>ItemListContainer</div>
-    )
-}
+        <div style={{
+            fontSize: "2rem",
+            fontWeight: "bold",
+            height: "90vh",
+            width: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+        }}
+        >
+            {greeting}
+        </div>
+    );
+};
 
+export default ItemListContainer;
 
