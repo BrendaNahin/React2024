@@ -19,7 +19,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import CartWidget from '../CartWidget/CartWidget'
 
 
-const NavBar = () => {
+export const NavBar = () => {
     const { colorMode, toggleColorMode } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -74,4 +74,3 @@ const NavBar = () => {
     )
 }
 
-export default NavBar;
