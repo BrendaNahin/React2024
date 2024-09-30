@@ -1,7 +1,8 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import MainLayout from "./layouts/MainLayout";
-import {Home}from "./pages";
+import { MainRouter } from "./router";
+
 
 
 
@@ -9,9 +10,8 @@ const App = () => {
   return (
     <ChakraProvider>
       <MainLayout>
-        <Home />
+  <MainRouter/>
       </MainLayout>
     </ChakraProvider>
   );
 };
-export default App;
