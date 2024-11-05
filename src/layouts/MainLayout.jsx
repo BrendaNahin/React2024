@@ -1,12 +1,9 @@
-import { Container } from "@chakra-ui/react";
-import { NavBar } from "../components/NavBar";
-
+import { Box } from "@chakra-ui/react";
 const MainLayout = ({ children }) => {
-    return( 
-    <Container>
-        <NavBar />
-        {children}
-    </Container>
+    return (
+        <Box>
+            {children}
+        </Box>
     );
 };
 

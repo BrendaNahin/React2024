@@ -1,24 +1,7 @@
-import {
-    Box,
-    chakra,
-    Container,
-    Stack,
-    Text,
-    Image,
-    Flex,
-    VStack,
-    Button,
-    Heading,
-    SimpleGrid,
-    StackDivider,
-    useColorModeValue,
-    VisuallyHidden,
-    List,
-    ListItem,
-} from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
+import { CartContext } from "../../context";
 
-export const ItemDetailContainer = ({ item }) => {
+const ItemDetail = ({ item, handleAddItem, handleRemoveItem, count, setCount }) => {
     return (
         <Container maxW={"7xl"}>
             <SimpleGrid
@@ -30,9 +13,7 @@ export const ItemDetailContainer = ({ item }) => {
                     <Image
                         rounded={"md"}
                         alt={"product image"}
-                        src={
-                            item.thumbnail
-                        }
+                        src={item.thumbnail}
                         fit={"cover"}
                         align={"center"}
                         w={"100%"}
@@ -67,28 +48,24 @@ export const ItemDetailContainer = ({ item }) => {
                         }
                     >
                         <VStack spacing={{ base: 4, sm: 6 }}>
-                            <Text fontSize={"lg"}>
-                                {item.description}
-                            </Text>
+                            <Text fontSize={"lg"}>{item.description}</Text>
                         </VStack>
                     </Stack>
-
-                    <Button
-                        rounded={"none"}
-                        w={"full"}
-                        mt={8}
-                        size={"lg"}
-                        py={"7"}
-                        bg={useColorModeValue("gray.900", "gray.50")}
-                        color={useColorModeValue("white", "gray.900")}
-                        textTransform={"uppercase"}
-                        _hover={{
-                            transform: "translateY(2px)",
-                            boxShadow: "lg",
-                        }}
+                    <Flex>
+                        <Text>
+                            Stock:{" "}
+                            {item.stock < 20 ? "Ultimas unidades disponibles" : item.stock}
+                        </Text>
+                    </Flex>
+                    <Flex
+                        justifyContent={"space-between"}
+                        width={"20%"}
+                        alignItems={"center"}
                     >
-                        Add to cart
-                    </Button>
+                        <Button onClick={handleRemoveItem}>-</Button>
+                        <Text>{count}</Text>
+                        <Button onClick={handleAddItem}>+</Button>
+                    </Flex>
 
                     <Stack direction="row" alignItems="center" justifyContent={"center"}>
                         <MdLocalShipping />
@@ -97,5 +74,27 @@ export const ItemDetailContainer = ({ item }) => {
                 </Stack>
             </SimpleGrid>
         </Container>
+    );
+};
+export const ItemDetailContainer = ({ item }) => {
+    const [count, setCount] = useState(0);
+    const { addItem, removeItem } = useContext(CartContext);
+    const handleAddItem = () => {
+        const newCount = count + 1;
+        setCount(newCount);
+        addItem(item, newCount);
+    };
+    const handleRemoveItem = () => {
+        setCount(count - 1);
+        removeItem(item);
+    };
+    return (
+        <ItemDetail
+            item={item}
+            handleAddItem={handleAddItem}
+            handleRemoveItem={handleRemoveItem}
+            count={count}
+            setCount={setCount}
+        />
     );
 };
